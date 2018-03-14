@@ -1,0 +1,13 @@
+extends layout
+
+block content  
+  main.container.mt-5
+    h1= 'Login'
+    form(action="/login" method="POST")
+      .row.form-group
+        label(for="Username") Username&nbsp;
+        input#username(type="text", name="username") 
+      .row.form-group
+        label(for="Password") Password&nbsp;
+        input#password(type="password", name="password")
+      input.btn.btn-primary(type="submit" value="Submit")
