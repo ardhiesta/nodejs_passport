@@ -3,6 +3,7 @@ var path = require('path');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var app = express();
+var students = require('./routes/students');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -79,5 +80,7 @@ app.post('/login',
   function(req, res) {
     res.redirect('/');
 });
+
+app.use('/students', isAuthenticated, students);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
