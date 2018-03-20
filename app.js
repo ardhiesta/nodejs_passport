@@ -1,19 +1,19 @@
-var express = require('express');
-var path = require('path');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var app = express();
-var students = require('./routes/students');
+const express = require('express');
+const path = require('path');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const app = express();
+const students = require('./routes/students');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-var env = process.env.NODE_ENV || 'development';
-var config = require('./config/config')[env];
+const env = process.env.NODE_ENV || 'development';
+const config = require('./config/config')[env];
 
-var mysql = require('mysql');
-var con = mysql.createConnection({
+const mysql = require('mysql');
+const con = mysql.createConnection({
   host: config.database.host,
   user: config.database.user,
   password: config.database.password,
