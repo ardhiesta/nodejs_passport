@@ -9,12 +9,15 @@ var students = require('./routes/students');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+var env = process.env.NODE_ENV || 'development';
+var config = require('./config/config')[env];
+
 var mysql = require('mysql');
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "linuxluv",
-  password: "linuxluv",
-  database: "node_passport"
+  host: config.database.host,
+  user: config.database.user,
+  password: config.database.password,
+  database: config.database.db
 });
 
 passport.use(new LocalStrategy(
@@ -37,14 +40,16 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  con.query('SELECT * FROM users WHERE id = ?', [id], function(err, user/*rows, fields*/) {
+  con.query('SELECT * FROM users WHERE id = ?', [id], function(err, user) {
     if(err) return done(err);
     done(null, user);
   });
 });
 
 app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(require('express-session')(
+  { secret: 'keyboard cat', resave: false, saveUninitialized: false })
+);
 
 // Initialize Passport and restore authentication state, if any, from the
 // session.
