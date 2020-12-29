@@ -1,0 +1,10 @@
+{
+    "development": {
+	"database": {
+		"host": "localhost",
+		"user": "xxx",
+		"password": "xxx",
+		"db": "node_passport"
+	}
+    }
+}
